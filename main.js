@@ -1,6 +1,3 @@
-// From: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-// Returns a random integer between min (included) and max (excluded)
-// Using Math.round() will give you a non-uniform distribution!
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
@@ -35,6 +32,24 @@ document.addEventListener("DOMContentLoaded", function(){
     var $form = document.getElementById("generate-group");
     var students = ["Seif", "Jackie", "Jessica", "Kimberly", "Brandon", "Blaise", "Evan", "Greg", "Charisse", "Luke", "Stephania", "David", "Steve", "Adam", "Spencer", "Leon", "Alex", "Gerald", "Sonda", "Beck", "Colby", "Kris"];
 
+function show(element){
+	element.classList.remove("hidden");
+}
+
+function hide(element){
+	element.classList.add("hidden");
+}
+
+var $select = $form.querySelector("select");
+var $numBox = $form.querySelector("input[type='number']");
+$select.addEventListener("change", function(event){
+	if(event.currentTarget.value === "randN"){
+	show($numBox);
+	$numBox.classList.remove("hidden");
+	}else {
+	hide($numBox);
+	}});
+
     $form.addEventListener("submit", function(event){
         event.preventDefault();
         var $ul = document.getElementById("results");
@@ -58,3 +73,5 @@ document.addEventListener("DOMContentLoaded", function(){
 
     });
 });
+
+
