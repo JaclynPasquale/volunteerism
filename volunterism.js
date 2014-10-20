@@ -1,6 +1,12 @@
 document.addEventListener('DOMContentLoaded', function(){
+	var $form = document.getElementById('generate-group');
 	var $select = document.querySelector('select');
 	var $button = document.querySelector('button');
+
+	$form.addEventListener("submit", function(event){
+	event.preventDefault();
+	});
+
 
  	$button.addEventListener('click', function(){
    		var $target = document.querySelector('.target');
