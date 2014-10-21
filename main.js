@@ -1,3 +1,18 @@
+
+function getJSON(url, cb){
+        //var url = arguments[0]
+        //var cb = argument[1]
+var xhr = new XMLHttpRequest();
+xhr.open('GET',url, true);
+
+xhr.onload = function() {
+        cb(JSON.parse(xhr.responseText));   
+};
+
+xhr.send();
+})()
+
+
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
@@ -30,7 +45,7 @@ function arrayShuffle(array){
 
 document.addEventListener("DOMContentLoaded", function(){
     var $form = document.getElementById("generate-group");
-    var students = ["Seif", "Jackie", "Jessica", "Kimberly", "Brandon", "Blaise", "Evan", "Greg", "Charisse", "Luke", "Stephania", "David", "Steve", "Adam", "Spencer", "Leon", "Alex", "Gerald", "Sonda", "Beck", "Colby", "Kris"];
+    
 
 function show(element){
 	element.classList.remove("hidden");
@@ -52,6 +67,10 @@ $select.addEventListener("change", function(event){
 
     $form.addEventListener("submit", function(event){
         event.preventDefault();
+
+        getJSON('https://volunteerism-sscotth.firebaseio.com/students.json', function(data){
+        var students = data;
+
         var $ul = document.getElementById("results");
         $ul.innerHTML = "";
 
@@ -69,9 +88,14 @@ $select.addEventListener("change", function(event){
         }else if(groupCriteria ==="randPair"){
             var shuffledStudents = arrayShuffle(students);
             neighborGrouping(shuffledStudents, 2, $ul);
+        }else if(groupCriteria ==="randN"){
+                var shuffledStudents = arrayShuffle(students);
+                var numPeople = $numBox.value;
+                neighborGrouping(shuffledStudents, numPeople, $ul);
         }
 
     });
+});
 });
 
 
