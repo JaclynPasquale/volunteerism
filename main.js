@@ -10,7 +10,7 @@ xhr.onload = function() {
 };
 
 xhr.send();
-})()
+}
 
 
 function getRandomInt(min, max) {
@@ -75,23 +75,29 @@ $select.addEventListener("change", function(event){
         $ul.innerHTML = "";
 
         var groupCriteria = $form.querySelector("select").value;
+        
+        switch(groupCriteria){
+                case "random-student":
+                 var studentNumber = getRandomInt(0, students.length);
+                 var studentName = students[studentNumber];
+                 addItemToList($ul, studentName);
+                 break;
+                case "neighbor-pairing":
+                  neighborGrouping(students, 2, $ul);
+                 break;
+                case "team-three":
+                 neighborGrouping(students, 3, $ul);
+                  break;
+                case "randPair":
+                 var shuffledStudents = arrayShuffle(students);
+                 neighborGrouping(shuffledStudents, 2, $ul);
+                 break;
+                case "randN":
+                 var shuffledStudents = arrayShuffle(students);
+                 var numPeople = $numBox.value;
+                 neighborGrouping(shuffledStudents, numPeople, $ul);
+                 break;
 
-        if(groupCriteria === "random-student"){
-            var studentNumber = getRandomInt(0, students.length);
-            var studentName = students[studentNumber];
-            addItemToList($ul, studentName);
-        } else if(groupCriteria === "neighbor-pairing") {
-            neighborGrouping(students, 2, $ul);
-
-        } else if(groupCriteria === "team-three"){
-             neighborGrouping(students, 3, $ul);
-        }else if(groupCriteria ==="randPair"){
-            var shuffledStudents = arrayShuffle(students);
-            neighborGrouping(shuffledStudents, 2, $ul);
-        }else if(groupCriteria ==="randN"){
-                var shuffledStudents = arrayShuffle(students);
-                var numPeople = $numBox.value;
-                neighborGrouping(shuffledStudents, numPeople, $ul);
         }
 
     });
